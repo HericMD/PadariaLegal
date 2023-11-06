@@ -29,12 +29,16 @@ onMounted(async () => {
 <style scoped>
 
 .container{
-  display: wrap;
-  flex-direction: row;
+  display: flex;
+  /* flex-direction: row; */
+  flex-wrap: wrap;
+  /* justify-content: space-evenly; */
+  /* justify-content: space-around; */
+  /* justify-content: space-between; */
 }
 .card {
-  width: 200px;
-  height: 200px;
+  width: 22.5%;
+  height: 230px;
   margin: 10px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -42,6 +46,6 @@ onMounted(async () => {
   box-shadow: 0 0 5px #ccc;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 </style>
