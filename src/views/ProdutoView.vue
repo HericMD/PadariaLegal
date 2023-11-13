@@ -13,8 +13,8 @@ const coverUrl = ref('')
 const file = ref(null)
 const produtoAtual = reactive({
   nome: '',
-  // descricao: '',
   categoria: '',
+  unidade: '',
   preco: 0,
 })
 
@@ -30,7 +30,7 @@ async function salvar() {
   Object.assign(produtoAtual, {
     id: '',
     nome: '',
-    // descricao: '',
+    uniadde: '',
     preco: 0,
     categoria: '',
     cover_attachment_key: ''
@@ -47,7 +47,7 @@ const showForm = ref(false)
 </script>
 
 <template>
-  <h1>produto</h1>
+  <h1>Produtos</h1>
   <button @click="showForm = true">
     Add
   </button>
@@ -67,9 +67,6 @@ const showForm = ref(false)
           <div>
             <input type="text" id="nome" v-model="produtoAtual.nome" placeholder="Nome">
           </div>
-          <!-- <div>
-            <input type="text" id="descricao" v-model="produtoAtual.descricao" placeholder="Descrição">
-          </div> -->
           <div>
             <input type="text" id="preco" v-model="produtoAtual.preco" placeholder="Preço">
           </div>
@@ -78,6 +75,14 @@ const showForm = ref(false)
               <option disabled value="">Selecione uma categoria</option>
               <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
                 {{ categoria.descricao }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <select v-model="produtoAtual.unidade">
+              <option disabled value="">Selecione um tipo de unidade</option>
+              <option v-for="unidade in unidades" :key="produto.unidade" :value="produtoAtual.unidade">
+                {{ produto.unidade }}
               </option>
             </select>
           </div>

@@ -18,7 +18,7 @@ onMounted(async () => {
       <div>
         <h3>{{ produto.nome }}</h3>
         <div>
-          <p>{{ produto.preco }}</p>
+          <p> R${{ produto.preco }}</p>
         </div>
         <p>{{ produto.categoria }}</p>
       </div>

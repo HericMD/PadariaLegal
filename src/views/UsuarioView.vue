@@ -39,22 +39,7 @@ export default {
 </script>
 
 <template>
-  <h1>Usuário</h1>
-  <hr />
-  <div class="form">
-    <input type="text" v-model="usuario.nome" placeholder="Nome" />
-    <input type="text" v-model="usuario.email" placeholder="Email" />
-    <input type="text" v-model="usuario.telefone" placeholder="Telefone" />
-    <input type="text" v-model="usuario.senha" placeholder="Senha" />
-    <input type="text" v-model="usuario.endereco_padrao" placeholder="Endereco" />
-    <select v-model="usuario.endereco_padrao">
-      <option value="">Selecione um endereço</option>
-      <option v-for="endereco of enderecos" :key="endereco.id" :value="endereco.id">
-        {{ endereco.cep }}
-      </option>
-    </select>
-    <button @click="salvar">Salvar</button>
-  </div>
+  <h1>Usuários</h1>
   <hr />
   <ul>
     <li v-for="usuario in usuarios" :key="usuario.id">

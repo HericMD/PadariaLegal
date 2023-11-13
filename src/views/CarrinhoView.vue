@@ -53,60 +53,33 @@ export default {
 </script>
 
 <template>
-  <h1>carrinho</h1>
-  <hr />
-  <div class="form">
-    <select v-model="carrinho.usuario">
-      <option value="">Selecione um usuario</option>
-      <option v-for="usuario of usuarios" :key="usuario.id" :value="usuario.id">
-        {{ usuario.nome }}
-      </option>
-    </select>
-    <select v-model="carrinho.produto">
-      <option value="">Selecione um produto</option>
-      <option v-for="produto of produtos" :key="produto.id" :value="produto.id">
-        {{ produto.nome }}
-      </option>
-    </select>
-    <select v-model="carrinho.endereco">
-      <option value="">Selecione um endereco</option>
-      <option v-for="endereco of enderecos" :key="endereco.id" :value="endereco.id">
-        {{ endereco.cep }}
-      </option>
-    </select>
-    <button @click="salvar">Salvar</button>
-  </div>
+  <h1>Carrinhos</h1>
   <hr />
   <ul>
-    <li v-for="carrinho in carrinhos" :key="carrinho.id">
-      <span @click="editar(carrinho)">
-        <li>
-          ID: {{ carrinho.id }}
-        </li>
-        <li>
-          Número: {{ carrinho.numero }}
-        </li>
-        <li>
-          Complemento: {{ carrinho.complemento }} 
-        </li>
-        <li>
-          Rua: {{ carrinho.rua }} 
-        </li>
-        <li>
-          Bairro: {{ carrinho.bairro }}
-        </li>
-        <li>
-          Cidade: {{ carrinho.cidade }}
-        </li>
-        <li>
-          Cep :{{ carrinho.cep }}
-        </li>
-        <hr>
-        <li>
-          testes: {{ carrinho.id }} - {{ carrinho.usuario }} - {{ carrinho.produto }}
-        </li>
-      </span>
-      <button @click="excluir(carrinho)">X</button>
+    <!-- <li v-for="carrinho in carrinhos" :key="carrinho.id"> -->
+    <li v-for="carrinho in carrinhos">
+    <li>
+      ID: {{ carrinho.id }}
+    </li>
+    <li>
+      Cep: {{ carrinho.cep }}
+    </li>
+    <li>
+      Número: {{ carrinho.numero }}
+    </li>
+    <li>
+      Complemento: {{ carrinho.complemento }}
+    </li>
+    <!-- <li v-for="item in carrinho.item">
+    <li>
+      Itens: {{ item.id }}
+    </li>
+    <li>
+      Itens: {{ carrinho.item.id }}
+    </li>
+    </li> -->
+
+    <button @click="excluir(carrinho)">X</button>
     </li>
   </ul>
 </template>
