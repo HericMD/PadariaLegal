@@ -30,11 +30,7 @@ onMounted(async () => {
 
 .container{
   display: flex;
-  /* flex-direction: row; */
   flex-wrap: wrap;
-  /* justify-content: space-evenly; */
-  /* justify-content: space-around; */
-  /* justify-content: space-between; */
 }
 .card {
   width: 22.5%;
