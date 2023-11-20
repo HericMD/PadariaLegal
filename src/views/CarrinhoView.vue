@@ -55,33 +55,19 @@ export default {
 <template>
   <h1>Carrinhos</h1>
   <hr />
-  <ul>
-    <!-- <li v-for="carrinho in carrinhos" :key="carrinho.id"> -->
-    <li v-for="carrinho in carrinhos">
-    <li>
-      ID: {{ carrinho.id }}
-    </li>
-    <li>
-      Cep: {{ carrinho.cep }}
-    </li>
-    <li>
-      Número: {{ carrinho.numero }}
-    </li>
-    <li>
-      Complemento: {{ carrinho.complemento }}
-    </li>
-    <!-- <li v-for="item in carrinho.item">
-    <li>
-      Itens: {{ item.id }}
-    </li>
-    <li>
-      Itens: {{ carrinho.item.id }}
-    </li>
-    </li> -->
-
-    <button @click="excluir(carrinho)">X</button>
-    </li>
-  </ul>
+  <div class="container">
+    <div v-for="carrinho in carrinhos" :key="carrinho.id" class="card">
+      <p>Id: {{ carrinho.id }}</p>
+      <p>Endereço:</p>
+      <p>Cep: {{ carrinho.cep }}</p>
+      <p>Número: {{ carrinho.numero }}</p>
+      <p>Complemento: {{ carrinho.complemento }}</p>
+      <!-- <div v-for="item in itens" :key="item.id">
+        <p>Id: {{ item.id }}</p>
+      </div> -->
+      <button @click="excluir(carrinho)">Entregue</button>
+    </div>
+  </div>
 </template>
 
 <style></style>
