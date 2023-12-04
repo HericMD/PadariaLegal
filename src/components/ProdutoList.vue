@@ -1,14 +1,27 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 
-import produtosApi from '@/api/produtos'
+import produtosApi from "@/api/produtos";
 
-const produtos = ref([])
+const produtos = ref([]);
 
 onMounted(async () => {
-  const data = await produtosApi.buscarTodosOsProdutos()
-  produtos.value = data
-})
+  await carregarProdutos();
+});
+
+const carregarProdutos = async () => {
+  const data = await produtosApi.buscarTodosOsProdutos();
+  produtos.value = data;
+};
+
+const excluirProduto = async (produto) => {
+  try {
+    await produtosApi.excluirProduto(produto);
+    await carregarProdutos();
+  } catch (error) {
+    console.error("Erro ao excluir produto:", error);
+  }
+};
 </script>
 
 <template>
@@ -18,17 +31,17 @@ onMounted(async () => {
       <div>
         <h3>{{ produto.nome }}</h3>
         <div>
-          <p> R${{ produto.preco }}</p>
+          <p>R${{ produto.preco }} por {{ produto.unidade }}</p>
         </div>
         <p>{{ produto.categoria }}</p>
       </div>
+      <button @click="excluirProduto(produto)">excluir</button>
     </div>
   </div>
 </template>
 
 <style scoped>
-
-.container{
+.container {
   display: flex;
   flex-wrap: wrap;
 }
@@ -43,5 +56,10 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  color: black;
+}
+
+img {
+  max-width: 100px;
 }
 </style>

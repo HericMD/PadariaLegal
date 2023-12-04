@@ -1,66 +1,96 @@
 <script>
 import UsuariosApi from "@/api/usuarios";
 const usuariosApi = new UsuariosApi();
-import EnderecosApi from "@/api/enderecos";
-const enderecosApi = new EnderecosApi();
 
 export default {
   data() {
     return {
       usuarios: [],
       usuario: {},
-      enderecos: [],
-      endereco: {},
+      mostrarCarrinho: false,
     };
   },
   async created() {
     this.usuarios = await usuariosApi.buscarTodosOsUsuarios();
-    this.enderecos = await enderecosApi.buscarTodosOsEnderecos();
   },
   methods: {
-    async salvar() {
-      if (this.usuario.id) {
-        await usuariosApi.atualizarUsuario(this.usuario);
+    verCarrinho(usuario) {
+      this.usuario = usuario;
+      this.mostrarCarrinho = true;
+      if (this.usuario.carrinho && this.usuario.carrinho.item) {
+        this.usuario.carrinho.total = this.usuario.carrinho.item.reduce(
+          (total, item) => {
+            return total + item.produto.preco * item.quantidade;
+          },
+          0
+        );
       } else {
-        await usuariosApi.adicionarUsuario(this.usuario);
+        this.usuario.carrinho.total = 0;
       }
-      this.usuario = {};
-      this.usuarios = await usuariosApi.buscarTodosOsUsuarios();
-    },
-    editar(usuario) {
-      Object.assign(this.usuario, usuario);
-    },
-    async excluir(usuario) {
-      await usuariosApi.excluirUsuario(usuario.id);
-      this.usuarios = await usuariosApi.buscarTodosOsUsuarios();
     },
   },
 };
 </script>
 
 <template>
-  <h1>Usuários</h1>
-  <div class="container">
-    <div v-for="usuario in usuarios" :key="usuario.id" class="card">
-      <p>{{ usuario.id }}</p>
-      <img :src="usuario.foto.url" :alt="usuario.nome" />
-      <h3>{{ usuario.first_name }} {{ usuario.last_name }}</h3>
-      <p>{{ usuario.email }}</p>
-      <p>Cpf: {{ usuario.cpf }}</p>
-      <p>Telefone: {{ usuario.telefone }}</p>
+  <div>
+    <h1>Usuários</h1>
+    <div class="container">
+      <div v-for="usuario in usuarios" :key="usuario.id" class="card">
+        <p>{{ usuario.id }}</p>
+        <img :src="usuario.foto.url" :alt="usuario.nome" />
+        <h3>{{ usuario.first_name }} {{ usuario.last_name }}</h3>
+        <p>{{ usuario.email }}</p>
+        <p>Cpf: {{ usuario.cpf }}</p>
+        <p>Telefone: {{ usuario.telefone }}</p>
+        <button @click="verCarrinho(usuario)">Ver carrinho</button>
+      </div>
+    </div>
+
+    <!-- Modal para ver o carrinho -->
+    <div v-if="mostrarCarrinho" class="modal">
+      <div class="modal-content">
+        <h2>Carrinho de {{ usuario.first_name }} {{ usuario.last_name }}</h2>
+        <p>Endereço de entrega:</p>
+        <p>Cep: {{ usuario.carrinho.endereco.cep }}</p>
+        <p>
+          {{ usuario.carrinho.endereco.complemento }}
+          {{ usuario.carrinho.endereco.numero }}
+        </p>
+        <hr />
+        <p>Itens:</p>
+        <div v-for="item in usuario.carrinho.item" :key="item.id">
+          <p>{{ item.produto.nome }} x{{ item.quantidade }}</p>
+        </div>
+        <hr />
+        <p>Valor do carrinho:</p>
+        <div v-for="item in usuario.carrinho.item" :key="item.id">
+          <p>
+            R${{ item.produto.preco }} * {{ item.quantidade }} = R${{
+              (item.produto.preco * item.quantidade).toFixed(2)
+            }}
+          </p>
+        </div>
+        <p>Total: R${{ usuario.carrinho.total.toFixed(2) }}</p>
+        <button @click="mostrarCarrinho = false">Fechar Carrinho</button>
+      </div>
     </div>
   </div>
 </template>
 
-<style>
+<style scoped>
+h1 {
+  color: black;
+}
 .container {
   display: flex;
   flex-wrap: wrap;
+  color: black;
 }
 
 .card {
   width: 22.5%;
-  height: 230px;
+  height: 260px;
   margin: 10px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -72,10 +102,29 @@ export default {
   align-items: center;
   min-width: 210px;
 }
-img{
+
+img {
   justify-content: center;
   width: 100px;
   height: 100px;
   border-radius: 100px;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
 }
 </style>
