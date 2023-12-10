@@ -43,6 +43,10 @@ export default {
         <p>{{ usuario.email }}</p>
         <p>Cpf: {{ usuario.cpf }}</p>
         <p>Telefone: {{ usuario.telefone }}</p>
+        <p>Endereço do Usuário:</p>
+        <p>CEP: {{ usuario.endereco_usuario?.cep }}</p>
+        <p>Complemento: {{ usuario.endereco_usuario?.complemento }}</p>
+        <p>Número: {{ usuario.endereco_usuario?.numero }}</p>
         <button @click="verCarrinho(usuario)">Ver carrinho</button>
       </div>
     </div>
@@ -52,10 +56,10 @@ export default {
       <div class="modal-content">
         <h2>Carrinho de {{ usuario.first_name }} {{ usuario.last_name }}</h2>
         <p>Endereço de entrega:</p>
-        <p>Cep: {{ usuario.carrinho.endereco.cep }}</p>
+        <p>Cep: {{ usuario.carrinho.endereco_carrinho?.cep }}</p>
         <p>
-          {{ usuario.carrinho.endereco.complemento }}
-          {{ usuario.carrinho.endereco.numero }}
+          {{ usuario.carrinho.endereco_carrinho?.complemento }}
+          {{ usuario.carrinho.endereco_carrinho?.numero }}
         </p>
         <hr />
         <p>Itens:</p>
@@ -90,7 +94,6 @@ h1 {
 
 .card {
   width: 22.5%;
-  height: 260px;
   margin: 10px;
   padding: 10px;
   border: 1px solid #ccc;

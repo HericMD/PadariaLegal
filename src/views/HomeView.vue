@@ -119,8 +119,3 @@ const showForm = ref(false);
   <ProdutoList />
 </template>
 
-<style>
-img {
-  max-width: 100px;
-}
-</style>

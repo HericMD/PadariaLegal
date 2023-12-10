@@ -60,6 +60,7 @@ const excluirProduto = async (produto) => {
 }
 
 img {
+  max-height: 100px;
   max-width: 100px;
 }
 </style>
